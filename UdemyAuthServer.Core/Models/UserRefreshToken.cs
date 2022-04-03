@@ -1,5 +1,6 @@
 ﻿namespace UdemyAuthServer.Core.Models
 {
+    // UserResfreshToken Entity
     public class UserRefreshToken
     {
         public string UserId { get; set; }

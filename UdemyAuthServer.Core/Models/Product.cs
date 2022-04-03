@@ -1,5 +1,6 @@
 ﻿namespace UdemyAuthServer.Core.Models
 {
+    // Product Entity
     public class Product
     {
         public int Id { get; set; }
