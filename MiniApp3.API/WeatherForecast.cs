@@ -1,4 +1,4 @@
-namespace UdemyAuthServer.API
+namespace MiniApp3.API
 {
     public class WeatherForecast
     {

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace UdemyAuthServer.API.Controllers
+namespace MiniApp3.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]

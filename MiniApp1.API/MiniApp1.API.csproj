@@ -12,11 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SharedLibrary\SharedLibrary.csproj" />
-    <ProjectReference Include="..\UdemyAuthServer.Service\UdemyAuthServer.Service.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
