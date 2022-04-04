@@ -9,7 +9,7 @@ namespace UdemyAuthServer.Core.Repositories
         Task<IEnumerable<TEntity>> GetAllAsync();
         IQueryable<TEntity> Where(Expression<Func<TEntity, bool>> expression);
         Task AddAsync(TEntity entity);
-        void Remove(int id);
+        void Remove(TEntity entity);
         TEntity Update(TEntity entity);
     }
 }
