@@ -6,7 +6,5 @@
         public DateTime AccessTokenExpiration { get; set; }
         public string RefreshToken { get; set; }
         public DateTime ResfreshTokenExpiration { get; set; }
-
-
     }
 }
