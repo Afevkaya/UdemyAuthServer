@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace SharedLibrary.DTOs
+namespace SharedLibrary.Dtos
 {
     public class CustomResponseDto<T>
     {

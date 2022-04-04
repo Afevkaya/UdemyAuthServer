@@ -1,4 +1,4 @@
-﻿namespace SharedLibrary.DTOs
+﻿namespace SharedLibrary.Dtos
 {
     // ErrorDto class
     public class ErrorDto

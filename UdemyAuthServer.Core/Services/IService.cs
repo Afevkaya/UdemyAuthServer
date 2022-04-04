@@ -1,8 +1,10 @@
-﻿using SharedLibrary.DTOs;
+﻿using SharedLibrary.Dtos;
 using System.Linq.Expressions;
 
 namespace UdemyAuthServer.Core.Services
 {
+    // SERVİCE LER GERİYE DTO CLASS DÖNERLER. ÇÜNKÜ DATAYI TÜKETECEK OLAN KATMAN UI KATMANIDIR.
+    // TEntity class TDto classa çevrilecek.
     public interface IService<TEntity,TDto> where TEntity : class where TDto : class
     {
         Task<CustomResponseDto<TDto>> GetByIdAsync(int id);
