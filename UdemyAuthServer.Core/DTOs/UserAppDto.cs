@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UdemyAuthServer.Core.DTOs
+﻿namespace UdemyAuthServer.Core.DTOs
 {
+
+    // User kayıt edildikten sonra user tarafına dönecek Dto class
+
+    // UserAppDto class
     public class UserAppDto
     {
         public int Id { get; set; }

@@ -1,13 +1,13 @@
 ﻿using SharedLibrary.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UdemyAuthServer.Core.DTOs;
 
 namespace UdemyAuthServer.Core.Services
 {
+    // Bu işlem bir database işlemi olmasına rağmen repo tarafında yazdığımız bir kod yok.
+    // Bunun nedeni Identity API içinde bizim için hazır olan metodlar bulunmaktadır.
+
+
+    // IUserService interface
     public interface IUserService
     {
         Task<CustomResponseDto<UserAppDto>> CreateUserAsync(CreateUserDto createUserDto);

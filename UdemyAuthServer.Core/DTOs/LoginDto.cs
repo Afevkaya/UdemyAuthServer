@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UdemyAuthServer.Core.DTOs
+﻿namespace UdemyAuthServer.Core.DTOs
 {
+    // Bir login işlemi gerçekleşirken kullanıcıdan istenecek veriler.
+    // Eğer database deki ile eşleşirsen kullanıcıya Token dönecek.
+
+
+    // LoginDto class
     public class LoginDto
     {
         public string Email { get; set; }

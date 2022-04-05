@@ -1,6 +1,8 @@
 ﻿namespace UdemyAuthServer.Core.Models
 {
     // Product Entity
+    // UserId foreigKey
+    // UserId Product'ın hangi User'a ait olduğunu belirtmek için tanımladık.
     public class Product
     {
         public int Id { get; set; }

@@ -1,13 +1,13 @@
 ﻿using SharedLibrary.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UdemyAuthServer.Core.DTOs;
 
 namespace UdemyAuthServer.Core.Services
 {
+
+    // Login işlemi gerçekleştikten sonra veya client yeni bir token istedikten sonra kullanıcıya token dönecek interface
+    // Client'a bir bilgi döneceğimiz için temel yapımızı kullanıyoruz.
+
+    // IAuthenticationService interface
     public interface IAuthenticationService
     {
         Task<CustomResponseDto<TokenDto>> CreateTokenAsync(LoginDto loginDto);

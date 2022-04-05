@@ -3,8 +3,14 @@ using System.Linq.Expressions;
 
 namespace UdemyAuthServer.Core.Services
 {
+
     // SERVİCE LER GERİYE DTO CLASS DÖNERLER. ÇÜNKÜ DATAYI TÜKETECEK OLAN KATMAN UI KATMANIDIR.
-    // TEntity class TDto classa çevrilecek.
+    // Generic IService interface TEntity ve TDto datalarını alır. 
+    // Gelen TEntity datasını TDto datasına çevirir.
+    // Çevrilen TDto datasını da kullanıcıya döndürür.
+
+
+    // Generic IService interface
     public interface IService<TEntity,TDto> where TEntity : class where TDto : class
     {
         Task<CustomResponseDto<TDto>> GetByIdAsync(int id);
