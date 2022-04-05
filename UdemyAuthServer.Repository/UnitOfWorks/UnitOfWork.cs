@@ -2,6 +2,10 @@
 
 namespace UdemyAuthServer.Repository.UnitOfWorks
 {
+    // IUnitOfWork interface'ini implement eden class
+    // Bu class Unit Of Work desig pattern'ı uygulamamzı sağlıyor.
+
+    // UnitOfWork class
     public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext _context;
