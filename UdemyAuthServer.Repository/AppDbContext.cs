@@ -20,6 +20,7 @@ namespace UdemyAuthServer.Repository
         public DbSet<Product> Products { get; set; }
         public DbSet<UserRefreshToken> UserRefreshTokens { get; set; }
 
+        // Config işlemlerinin yapıldığı metod
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
