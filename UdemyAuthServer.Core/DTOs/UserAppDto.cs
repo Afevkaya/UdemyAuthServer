@@ -1,7 +1,7 @@
 ﻿namespace UdemyAuthServer.Core.DTOs
 {
 
-    // User kayıt edildikten sonra user tarafına dönecek Dto class
+    // User kayıt edildikten sonra user tarafına dönülecek Dto class
 
     // UserAppDto class
     public class UserAppDto

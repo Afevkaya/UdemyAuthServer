@@ -2,6 +2,9 @@
 
 namespace UdemyAuthServer.Service.Mapping
 {
+    // Bu class ihtiyaç duyduğu zaman IMapper üretimi yapıyor.
+
+    // Static ObjectMapper class
     public static class ObjectMapper
     {
         private static readonly Lazy<IMapper> lazy = new Lazy<IMapper>(() =>

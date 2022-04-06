@@ -1,4 +1,5 @@
-﻿using SharedLibrary.Dtos;
+﻿using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Dtos;
 using System.Linq.Expressions;
 using UdemyAuthServer.Core.Repositories;
 using UdemyAuthServer.Core.Services;
@@ -16,12 +17,14 @@ namespace UdemyAuthServer.Service.Services
         private readonly IGenericRepository<TEntity> _repository;
         private readonly IUnitOfWork _unitOfWork;
 
+        
         public Service(IUnitOfWork unitOfWork, IGenericRepository<TEntity> repository)
         {
             _unitOfWork = unitOfWork;
-            _repository = repository;
+            _repository = repository;  
         }
 
+        // Asenkron ekleme metodu
         public async Task<CustomResponseDto<TDto>> AddAsync(TDto dto)
         {
             var newEntity = ObjectMapper.Mapper.Map<TEntity>(dto);
@@ -32,16 +35,20 @@ namespace UdemyAuthServer.Service.Services
             return CustomResponseDto<TDto>.Success(201, newDto);
         }
 
+        // Asenkron bütün dataları çekme metodu
         public async Task<CustomResponseDto<IEnumerable<TDto>>> GetAllAsync()
         {
-            var entites = await _repository.GetAllAsync();
-            var dtos = ObjectMapper.Mapper.Map<IEnumerable<TDto>>(entites);
+            var entites = await _repository.GetAllAsync(); 
+            var dtos = ObjectMapper.Mapper.Map<List<TDto>>(entites);
             return CustomResponseDto<IEnumerable<TDto>>.Success(200, dtos);
         }
 
+        // Asenkron Id'ye göre data çekme metodu
         public async Task<CustomResponseDto<TDto>> GetByIdAsync(int id)
         {
             var entity = await _repository.GetByIdAsync(id);
+
+            // Business rule
             if (entity == null)
             {
                 return CustomResponseDto<TDto>.Fail(404, "Not found", true);
@@ -50,22 +57,27 @@ namespace UdemyAuthServer.Service.Services
             return CustomResponseDto<TDto>.Success(200, dto);
         }
 
+        // Asenkron silme metodu
         public async Task<CustomResponseDto<NoContentDto>> RemoveAsync(int id)
         {
-            var entity = await _repository.GetByIdAsync(id);
-            if(entity == null)
+            var isExistEntity = await _repository.GetByIdAsync(id);
+            
+            // Business rule
+            if(isExistEntity == null)
             {
                 return CustomResponseDto<NoContentDto>.Fail(404, "Id Not Found", true);
             }
-            _repository.Remove(entity);
+            _repository.Remove(isExistEntity);
             await _unitOfWork.CommitAsync();
             return CustomResponseDto<NoContentDto>.Success(204);
         }
 
+        // Asenkron güncelleme metodu
         public async Task<CustomResponseDto<NoContentDto>> UpdateAsync(TDto dto, int id)
-        {
-            
+        {  
             var isExistEntity = await _repository.GetByIdAsync(id);
+            
+            // Business rule
             if (isExistEntity == null)
             {
                 return CustomResponseDto<NoContentDto>.Fail(404, "Id Not Found", true);
@@ -76,10 +88,11 @@ namespace UdemyAuthServer.Service.Services
             return CustomResponseDto<NoContentDto>.Success(204);
         }
 
+        // Asenkron sorgulama metodu
         public async Task<CustomResponseDto<IEnumerable<TDto>>> Where(Expression<Func<TEntity, bool>> expression)
         {
             var list = _repository.Where(expression);
-            var dtos = ObjectMapper.Mapper.Map<IEnumerable<TDto>>(list);
+            var dtos = ObjectMapper.Mapper.Map<IEnumerable<TDto>>(await list.ToListAsync());
             return CustomResponseDto<IEnumerable<TDto>>.Success(200, dtos);
         }
     }
