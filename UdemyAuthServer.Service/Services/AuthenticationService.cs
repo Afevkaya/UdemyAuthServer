@@ -76,14 +76,37 @@ namespace UdemyAuthServer.Service.Services
             return CustomResponseDto<ClientTokenDto>.Success(200, token);
         }
 
-        public Task<CustomResponseDto<TokenDto>> CreateTokenByRefreshToken(string refreshToken)
+        public async Task<CustomResponseDto<TokenDto>> CreateTokenByRefreshToken(string refreshToken)
         {
-            throw new NotImplementedException();
+            var existRefreshToken = await _genericRepository.Where(x => x.Code == refreshToken).SingleOrDefaultAsync();
+            if(existRefreshToken == null)
+            {
+                return CustomResponseDto<TokenDto>.Fail(404, "Refresh Token Not Found", true);
+            }
+            var user = await _userManager.FindByIdAsync(existRefreshToken.UserId);
+            if(user == null)
+            {
+                return CustomResponseDto<TokenDto>.Fail(404, "User Id Not Found", true);
+            }
+
+            var tokenDto = _tokenService.CreateToken(user);
+            existRefreshToken.Code = tokenDto.RefreshToken;
+            existRefreshToken.Expiration = tokenDto.ResfreshTokenExpiration;
+
+            await _unitOfWork.CommitAsync();
+            return CustomResponseDto<TokenDto>.Success(200, tokenDto);
         }
 
-        public Task<CustomResponseDto<NoContentDto>> RevokeRefreshToken(string refreshToken)
+        public async Task<CustomResponseDto<NoContentDto>> RevokeRefreshToken(string refreshToken)
         {
-            throw new NotImplementedException();
+            var existRefreshToken = await _genericRepository.Where(x=>x.Code == refreshToken).SingleOrDefaultAsync();
+            if (existRefreshToken == null)
+            {
+                return CustomResponseDto<NoContentDto>.Fail(404, "Refresh Toke Not Found", true);
+            }
+            _genericRepository.Remove(existRefreshToken);
+            await _unitOfWork.CommitAsync();
+            return CustomResponseDto<NoContentDto>.Success(204);
         }
     }
 }
