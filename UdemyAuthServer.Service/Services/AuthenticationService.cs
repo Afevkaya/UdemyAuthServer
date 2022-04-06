@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using SharedLibrary.Dtos;
 using UdemyAuthServer.Core.Configuration;
@@ -30,9 +31,38 @@ namespace UdemyAuthServer.Service.Services
         }
 
 
-        public Task<CustomResponseDto<TokenDto>> CreateTokenAsync(LoginDto loginDto)
+        public async Task<CustomResponseDto<TokenDto>> CreateTokenAsync(LoginDto loginDto)
         {
-            throw new NotImplementedException();
+            if (loginDto == null)
+            {
+                throw new ArgumentNullException(nameof(loginDto));
+            }
+
+            var user = await _userManager.FindByEmailAsync(loginDto.Email);
+            if (user == null)
+            {
+                return CustomResponseDto<TokenDto>.Fail(400, "Email or Password wrong", true);
+            }
+            if (!await _userManager.CheckPasswordAsync(user,loginDto.Password))
+            {
+                return CustomResponseDto<TokenDto>.Fail(400, "Email or Password wrong", true);
+            }
+
+            var token = _tokenService.CreateToken(user);
+            var userRefreshToken = await _genericRepository.Where(x => x.UserId == user.Id).SingleOrDefaultAsync();
+
+            if(userRefreshToken == null)
+            {
+                await _genericRepository.AddAsync(new UserRefreshToken { UserId = user.Id, Code = token.RefreshToken, Expiration = token.ResfreshTokenExpiration });
+            }
+            else
+            {
+                userRefreshToken.Code = token.RefreshToken;
+                userRefreshToken.Expiration = token.ResfreshTokenExpiration;
+            }
+
+            await _unitOfWork.CommitAsync();
+            return CustomResponseDto<TokenDto>.Success(200, token);
         }
 
         public Task<CustomResponseDto<ClientTokenDto>> CreateTokenByClient(ClientLoginDto clientLoginDto)
