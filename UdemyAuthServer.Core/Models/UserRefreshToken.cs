@@ -1,10 +1,12 @@
 ﻿namespace UdemyAuthServer.Core.Models
 {
-    // UserResfreshToken Entity
-    // UserRefreshToken class'ı içerisinde
-    // Ait olduğu kullanıcının Id'si
+
+    // UserRefreshToken class'ı property'leri
+    // UserId
     // İçinde bulundurduğu kodu
-    // Ve RefreshToken'ın ömrü bulunmaktadır.
+    // RefreshToken'ın ömrü
+
+    // UserResfreshToken Entity class
     public class UserRefreshToken
     {
         public string UserId { get; set; }

@@ -1,11 +1,9 @@
 ﻿namespace UdemyAuthServer.Core.DTOs
 {
-    // Token üreten server logIn işlemi gerçekleştikten sonra client'a döneceği property'leri tanımladık
-    // Bu propertyler
-    // AccessToken --> login işlemlerinde kullanılan token ve onun süresi    
-    // RefreshToken --> AccessToken'in süresi dolduğunda Token üreten server'dan yeni Access ve Refresh Token sağlayan token ve onun süresi
-    // Server tarafında RefreshToken ve onun süresi db'ye kayıt edilir.
-    
+    // Kullanıcı tarafına döneceğimiz Token'ların genel yapı(model)sını oluşturur.
+    // Bu token yapısı Üyelik işlemleri gerektiren API'lerde dönen token yapısıdır.
+    // TokenDto class propertyleri AccessToken, RefreshToken ve bunların kullanım süreleridir.
+
     // TokenDto class
     public class TokenDto
     {
