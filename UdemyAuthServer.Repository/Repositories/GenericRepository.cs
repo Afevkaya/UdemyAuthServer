@@ -4,12 +4,14 @@ using UdemyAuthServer.Core.Repositories;
 
 namespace UdemyAuthServer.Repository.Repositories
 {
-    // Core katmanında yazdığımız IGenericRepository interface'inin gövdesini oluşturduğumuz class
-    // Context class'ı üzerinden işlemleri gerçekleştiririz.
+    // Core katmanında yazılan IGenericRepository interface'ini implement eden class.
+    // Bu katmanda yapılan işlemler database yansıması gerekli.
+    // Bu yüzden database ile iletişime geçen context classını kullanmamız gerekli.
 
-    // GenericRepository class
+    // Generic GenericRepository class
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
+       
         protected readonly AppDbContext _context;
         private readonly DbSet<TEntity> _dbSet;
 
@@ -32,13 +34,12 @@ namespace UdemyAuthServer.Repository.Repositories
         public async Task<TEntity> GetByIdAsync(int id)
         {
             var entity = await _dbSet.FindAsync(id);
+            // Efcore entity'mizi takip etmemesi için yazdığımız kod bloğu
             if (entity != null)
             {
                 _context.Entry(entity).State = EntityState.Detached;
             }
-
             return entity;
-
         }
 
         public void Remove(TEntity entity)
@@ -48,6 +49,7 @@ namespace UdemyAuthServer.Repository.Repositories
 
         public TEntity Update(TEntity entity)
         {
+            // _dbSet.Update(entity);
             _context.Entry(entity).State = EntityState.Modified;
             return entity;
         }
