@@ -5,6 +5,8 @@ using UdemyAuthServer.Core.Models;
 namespace UdemyAuthServer.Repository.Configurations
 {
     // UserRefreshToken class'ına ait config işlemlerinin yapıldığı class
+    // Bir class'ın config class'ı olabilmesi için IEntityTypeConfiguration interface'ini implement etmesi gerekir.
+    // Configurasyon clsas'ının database tarafına yansıması için Context class'ı içinde ilgili metodnun içinde belirtmemiz gereklidir.
 
     // UserRefreshTokenConfiguration class
     public class UserRefreshTokenConfiguration : IEntityTypeConfiguration<UserRefreshToken>

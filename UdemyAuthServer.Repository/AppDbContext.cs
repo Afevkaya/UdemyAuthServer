@@ -21,6 +21,7 @@ namespace UdemyAuthServer.Repository
         public DbSet<UserRefreshToken> UserRefreshTokens { get; set; }
 
         // Config işlemlerinin yapıldığı metod
+        // Congig işlemleri başaka bir class içerisinde yapılıyorsa o classı bu metod içerisinde bildirmemiz gerekli.
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
