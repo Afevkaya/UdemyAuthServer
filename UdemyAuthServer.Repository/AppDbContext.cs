@@ -5,9 +5,9 @@ using UdemyAuthServer.Core.Models;
 
 namespace UdemyAuthServer.Repository
 {
-    // Db ile entity classları maplediğimiz class.
+    // Db tabloları ile entity classlarını maplediğimiz class.
     // Bu sefer IdentityDbContext classı inherit ettik.
-    // User ile ilgili DbSetler hazır olduğu için geri kalan entityleri mapledik.
+    // User ile ilgili DbSetler hazır olduğu için geri kalan entityleri DbSet'e ekledik.
 
     // AppDbContext class.
     public class AppDbContext : IdentityDbContext<UserApp,IdentityRole,string>
