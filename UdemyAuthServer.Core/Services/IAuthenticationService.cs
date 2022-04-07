@@ -4,8 +4,15 @@ using UdemyAuthServer.Core.DTOs;
 namespace UdemyAuthServer.Core.Services
 {
 
-    // Login işlemi gerçekleştikten sonra veya client yeni bir token istedikten sonra kullanıcıya token dönecek interface
-    // Client'a bir bilgi döneceğimiz için temel yapımızı kullanıyoruz.
+    // Kullanıcı ile iletişime geçecek olan interface
+    // Kullanıcı sisteme authentication olacağı zaman çalışacak olan class'ın gene yapısını belirlediğimiz interface
+    // Bu interface, kullanıcı sisteme authentice olduktan sonra toke dönecek. Bu işlemi de ITokenService yapacak. ITokenService kendi içimizde kullanıyoruz.
+    // Bu interface'in metodları
+    // CreateTokenAsync --> Kullanıcı login olduktan sonra token dönecek metod.
+    // CreateTokenByRefreshToken --> Kullanıcının AccessToken'ının süresi bittiğinde resfresh token ile token dönecek metod.
+    // RevokeRefreshToken --> Kullanıcı logout olduktan sonra refresh token'ı silecek metod.
+    // CreateTokenByClient --> Üyelik sistemi gerektirmeyen API'lerde token dönecek metod.
+
 
     // IAuthenticationService interface
     public interface IAuthenticationService

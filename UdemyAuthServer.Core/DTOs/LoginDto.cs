@@ -1,8 +1,6 @@
 ﻿namespace UdemyAuthServer.Core.DTOs
 {
-    // Bir login işlemi gerçekleşirken kullanıcıdan istenecek veriler.
-    // Eğer database deki ile eşleşirsen kullanıcıya Token dönecek.
-
+    // Kullancı sisteme giriş yaparken kullanıcıdan istenilecek bilgileri bulunduran dto class.
 
     // LoginDto class
     public class LoginDto
