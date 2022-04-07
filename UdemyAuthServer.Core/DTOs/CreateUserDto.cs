@@ -1,9 +1,8 @@
 ﻿namespace UdemyAuthServer.Core.DTOs
 {
-    // Bir user kayıt edileceği zaman client tarafında istenilecek datalar.
-    // User bu dataları girdikten sonra sisteme kayıt edilmiş olacak.
-    // Bu sayede token almak isteyebilecek.
+    // Kullanıcıyı database kaydetmek için kullanıcıdan alacağımız bilgileri bulunduran dto class
 
+    // CreateUserDto
     public class CreateUserDto
     {
         public string UserName { get; set; }

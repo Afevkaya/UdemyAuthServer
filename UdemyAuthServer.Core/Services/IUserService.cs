@@ -3,9 +3,10 @@ using UdemyAuthServer.Core.DTOs;
 
 namespace UdemyAuthServer.Core.Services
 {
-    // Bu işlem bir database işlemi olmasına rağmen repo tarafında yazdığımız bir kod yok.
-    // Bunun nedeni Identity API içinde bizim için hazır olan metodlar bulunmaktadır.
-
+    // Kullanıcıya ait işlemlerin genel hatlarını belirlediğimiz interface class
+    // Bu interface API ile iletişime geçecek interface
+    // User'a ait repo işlemleri yazılmamaktadır.
+    // Çünkü Identity API içinde repo ile ilgili metodlar bulunmaktadır.
 
     // IUserService interface
     public interface IUserService
