@@ -3,7 +3,8 @@
 namespace UdemyAuthServer.Repository.UnitOfWorks
 {
     // IUnitOfWork interface'ini implement eden class
-    // Bu class Unit Of Work desig pattern'ı uygulamamzı sağlıyor.
+    // UnitOfWork class'ı Unit Of Work design pattern'ı projede uygulamamızı sağlar.
+    // Unit Of Work design pattern'ı uygulanması gereken katman service layer'dır.
 
     // UnitOfWork class
     public class UnitOfWork : IUnitOfWork
