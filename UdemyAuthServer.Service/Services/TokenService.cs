@@ -12,11 +12,21 @@ using UdemyAuthServer.Core.Services;
 
 namespace UdemyAuthServer.Service.Services
 {
+    // TokenService class içerisinde ITokenService interface'i içerisinde bulununan metodların gövdeleri kodlanır.
+    // Bu class Token üreten bir service olduğu için RefreshToken'ı da bu class içerisinde ayrı bir metod da kodlanır.
+    // Access Token üretirken gerekli olan parametreler Token içerisinde taşınacak datalardır ve class içerisinde tanımlanır.
+
+    // Claims, JWT içerisinde payload bölümünde taşınacak kullanıcya ait datalar ve/veya hangi apilere istek atabileceği gibi bilgilerin her birine Claims denir. 
+
+
+    // TokenService class
     public class TokenService : ITokenService
     {
+        // Access token üretirken içinde taşınacak parametreler.
         private readonly UserManager<UserApp> _userManager;
         private readonly CustomTokenOption _tokenOption;
 
+        // constructor
         public TokenService(UserManager<UserApp> userManager, IOptions<CustomTokenOption> options)
         {
             _userManager = userManager;
@@ -28,7 +38,7 @@ namespace UdemyAuthServer.Service.Services
         {
             var numberByte = new byte[32];
             using var rnd = RandomNumberGenerator.Create();
-            rnd.GetBytes(numberByte);
+            rnd.GetBytes(numberByte); 
             return Convert.ToBase64String(numberByte);
         }
 
@@ -50,10 +60,14 @@ namespace UdemyAuthServer.Service.Services
         // Claims oluşturma metodu Client için.
         private IEnumerable<Claim> GetClaimsByClient(Client client)
         {
-            var claims = new List<Claim>();
+            var claims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Sub, client.Id.ToString())
+            };
+            
             claims.AddRange(client.Audiences.Select(x => new Claim(JwtRegisteredClaimNames.Aud, x)));
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString());
-            new Claim(JwtRegisteredClaimNames.Sub, client.Id.ToString());
+            
 
             return claims;
         }
