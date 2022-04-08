@@ -2,7 +2,7 @@
 
 namespace UdemyAuthServer.Service.Mapping
 {
-    // Bu class ihtiyaç duyduğu zaman IMapper üretimi yapıyor.
+    // Static ObjectMapper class'ı ihtiyaç duyulduğu anda bir IMapper nesnesi üretiyor.
 
     // Static ObjectMapper class
     public static class ObjectMapper
@@ -16,6 +16,7 @@ namespace UdemyAuthServer.Service.Mapping
             return config.CreateMapper();
         });
 
+        // Private kodu dışarıya açma.
         public static IMapper Mapper => lazy.Value;
     }
 }
