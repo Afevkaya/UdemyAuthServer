@@ -38,7 +38,12 @@ namespace UdemyAuthServer.Service.Services
         // Asenkron bütün dataları çekme metodu
         public async Task<CustomResponseDto<IEnumerable<TDto>>> GetAllAsync()
         {
-            var entites = await _repository.GetAllAsync(); 
+            var entites = await _repository.GetAllAsync();
+            if (entites == null)
+            {
+                return CustomResponseDto<IEnumerable<TDto>>.Fail(404, "Not Found", true);
+            }
+
             var dtos = ObjectMapper.Mapper.Map<List<TDto>>(entites);
             return CustomResponseDto<IEnumerable<TDto>>.Success(200, dtos);
         }

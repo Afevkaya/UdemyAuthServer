@@ -7,6 +7,8 @@ namespace UdemyAuthServer.Service.Mapping
     // Static ObjectMapper class
     public static class ObjectMapper
     {
+
+        // IMapper üretme metodu
         private static readonly Lazy<IMapper> lazy = new Lazy<IMapper>(() =>
         {
             var config = new MapperConfiguration(cfg =>
