@@ -3,6 +3,7 @@ using SharedLibrary.Dtos;
 using UdemyAuthServer.Core.DTOs;
 using UdemyAuthServer.Core.Models;
 using UdemyAuthServer.Core.Services;
+using UdemyAuthServer.Service.Mapping;
 
 namespace UdemyAuthServer.Service.Services
 {
@@ -15,14 +16,33 @@ namespace UdemyAuthServer.Service.Services
             _userManager = userManager;
         }
 
-        public Task<CustomResponseDto<UserAppDto>> CreateUserAsync(CreateUserDto createUserDto)
+        public async Task<CustomResponseDto<UserAppDto>> CreateUserAsync(CreateUserDto createUserDto)
         {
-            throw new NotImplementedException();
+            if (createUserDto == null)
+            {
+                throw new ArgumentNullException(nameof(createUserDto));
+            }
+
+            var user = new UserApp {Email = createUserDto.Email, UserName = createUserDto.UserName};
+            var result = await _userManager.CreateAsync(user, createUserDto.Password);
+
+            if (!result.Succeeded)
+            {
+                var errors = result.Errors.Select(x => x.Description).ToList();
+                return CustomResponseDto<UserAppDto>.Fail(404, new ErrorDto(errors, true));
+            }
+
+            return CustomResponseDto<UserAppDto>.Success(200, ObjectMapper.Mapper.Map<UserAppDto>(user));
         }
 
-        public Task<CustomResponseDto<UserAppDto>> GetUserByNameAsync(string userName)
+        public async Task<CustomResponseDto<UserAppDto>> GetUserByNameAsync(string userName)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user == null)
+            {
+                return CustomResponseDto<UserAppDto>.Fail(404,"User Not Found",true);
+            }
+            return CustomResponseDto<UserAppDto>.Success(200,ObjectMapper.Mapper.Map<UserAppDto>(user));
         }
     }
 }
