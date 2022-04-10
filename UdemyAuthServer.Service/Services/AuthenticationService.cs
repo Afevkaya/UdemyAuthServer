@@ -11,8 +11,15 @@ using UdemyAuthServer.Core.UnitOfWorks;
 
 namespace UdemyAuthServer.Service.Services
 {
+    // API ile iletisime gececek olan service class
+    // User veya client sisteme giris yapmak istediginde bu service calisacak.
+    // TokenService class da bu service icerisinde kulanilir.
+    // Ayrica is kurallarinin konulacagi class.
+
+    // AuthenticationService class
     public class AuthenticationService : IAuthenticationService
     {
+        // Authentice islemleri icin gerekli propertyler
         private readonly List<Client> _clients;
         private readonly ITokenService _tokenService;
         private readonly UserManager<UserApp> _userManager;
