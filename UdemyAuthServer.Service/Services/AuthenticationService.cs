@@ -37,7 +37,9 @@ namespace UdemyAuthServer.Service.Services
             _genericRepository = genericRepository;
         }
 
-
+        // User sisteme login olduğunda çalışacak metod.
+        // Business rules koyulur.
+        // Login işleminden sonra user'a token dönüyoruz.
         public async Task<CustomResponseDto<TokenDto>> CreateTokenAsync(LoginDto loginDto)
         {
             if (loginDto == null)
@@ -72,6 +74,9 @@ namespace UdemyAuthServer.Service.Services
             return CustomResponseDto<TokenDto>.Success(200, token);
         }
 
+        // Client(Identity işlemi gerektirmeyen API de user) sisteme giriş yaptığında çalışacak metod
+        // Business rules koyulur.
+        // Bu metod client tarafına ClinetToken döndürür.
         public CustomResponseDto<ClientTokenDto> CreateTokenByClient(ClientLoginDto clientLoginDto)
         {
             var client = _clients.SingleOrDefault(x => x.Id == clientLoginDto.ClientId && x.Secret == clientLoginDto.ClientSecret);
@@ -83,6 +88,9 @@ namespace UdemyAuthServer.Service.Services
             return CustomResponseDto<ClientTokenDto>.Success(200, token);
         }
 
+        // User sisteme elindeki refresh token ile giriş yapmak isterse çalışacak metod.
+        // Business rules koyulur.
+        // Geriye bir toke döndürür.
         public async Task<CustomResponseDto<TokenDto>> CreateTokenByRefreshToken(string refreshToken)
         {
             var existRefreshToken = await _genericRepository.Where(x => x.Code == refreshToken).SingleOrDefaultAsync();
@@ -104,6 +112,9 @@ namespace UdemyAuthServer.Service.Services
             return CustomResponseDto<TokenDto>.Success(200, tokenDto);
         }
 
+        // User sistemden çıkmak istediğinde çalışacak metod.
+        // Db'deki resfresh token'ı siler.
+        // Business rules koyulur.
         public async Task<CustomResponseDto<NoContentDto>> RevokeRefreshToken(string refreshToken)
         {
             var existRefreshToken = await _genericRepository.Where(x=>x.Code == refreshToken).SingleOrDefaultAsync();
