@@ -29,7 +29,7 @@ namespace UdemyAuthServer.Service.Services
             if (!result.Succeeded)
             {
                 var errors = result.Errors.Select(x => x.Description).ToList();
-                return CustomResponseDto<UserAppDto>.Fail(404, new ErrorDto(errors, true));
+                return CustomResponseDto<UserAppDto>.Fail(400, new ErrorDto(errors, true));
             }
 
             return CustomResponseDto<UserAppDto>.Success(200, ObjectMapper.Mapper.Map<UserAppDto>(user));
